@@ -6,11 +6,23 @@
     <meta name="color-scheme" content="dark" />
     <title>TOOLSX 3D — Spatial Engine &amp; 3D Studio | toolsx.in</title>
     <meta name="description" content="Comprehensive 3D Graphics pipeline, browser-first scene graph serialization, and AI generation compendium by AI Tools Lab India (toolsx.in)." />
+
     <meta property="og:title" content="TOOLSX — Spatial Engine &amp; 3D Engineering Architecture (toolsx.in)" />
     <meta property="og:description" content="Comprehensive 3D Graphics pipeline, browser-first scene graph serialization, and AI generation compendium by AI Tools Lab India (toolsx.in)." />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://3d.toolsx.in/" />
     <meta property="og:image" content="https://3d.toolsx.in/logo.svg" />
+    <meta property="og:image:alt" content="TOOLSX 3D logo" />
+    <meta property="og:site_name" content="TOOLSX 3D" />
+
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@toolsx_in" />
+    <meta name="twitter:creator" content="@toolsx_in" />
+    <meta name="twitter:title" content="TOOLSX — Spatial Engine &amp; 3D Engineering Architecture (toolsx.in)" />
+    <meta name="twitter:description" content="Comprehensive 3D Graphics pipeline, browser-first scene graph serialization, and AI generation compendium by AI Tools Lab India (toolsx.in)." />
+    <meta name="twitter:image" content="https://3d.toolsx.in/logo.svg" />
+    <meta name="twitter:image:alt" content="TOOLSX 3D logo" />
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/logo.svg" />
     <meta name="theme-color" content="#111319" />
@@ -19,10 +31,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=JetBrains+Mono:wght@100..900&family=Space+Grotesk:wght@100..900&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
 
-    <!-- ============================================================
-         MOBILE-FIRST GLOBAL BASE + ANIMATION SYSTEM
-         (React/Tailwind ko touch nahi karta, sirf support deta hai)
-    ============================================================ -->
     <style>
       *, *::before, *::after { box-sizing: border-box; }
 
@@ -30,13 +38,13 @@
         -webkit-text-size-adjust: 100%;
         text-size-adjust: 100%;
         scroll-behavior: smooth;
-        overflow-x: hidden;          /* horizontal scroll band */
+        overflow-x: hidden;
       }
 
       body {
         margin: 0;
         min-height: 100dvh;
-        overflow-x: hidden;          /* phone pe layout break na ho */
+        overflow-x: hidden;
         -webkit-tap-highlight-color: transparent;
         overscroll-behavior-y: none;
         text-rendering: optimizeLegibility;
@@ -44,14 +52,10 @@
 
       #root { min-height: 100dvh; isolation: isolate; }
 
-      /* canvas / images kabhi viewport se bahar na jayein */
       img, svg, video, canvas, iframe { max-width: 100%; }
       canvas { display: block; touch-action: none; }
-
-      /* 300ms tap delay hatao */
       a, button, [role="button"] { touch-action: manipulation; }
 
-      /* ---- Scrollbar (desktop only) ---- */
       @media (min-width: 1024px) {
         ::-webkit-scrollbar { width: 10px; height: 10px; }
         ::-webkit-scrollbar-track { background: #0c0e13; }
@@ -63,9 +67,6 @@
         ::-webkit-scrollbar-thumb:hover { background: #00f5a0; }
       }
 
-      /* ============================================================
-         ANIMATIONS
-      ============================================================ */
       @keyframes tx-fade-up {
         from { opacity: 0; transform: translate3d(0, 26px, 0); }
         to   { opacity: 1; transform: translate3d(0, 0, 0); }
@@ -96,7 +97,6 @@
         100% { transform: translateX(220%); }
       }
 
-      /* Scroll reveal (data-reveal + .tx-fade-up) */
       .tx-fade-up {
         opacity: 0;
         transform: translate3d(0, 26px, 0);
@@ -113,7 +113,6 @@
       .tx-fade-in { animation: tx-fade-in .8s ease-out both; }
       .tx-float   { animation: tx-float 6s ease-in-out infinite; }
 
-      /* Decorative glow orbs (footer / hero) */
       .tx-orb {
         position: absolute;
         border-radius: 9999px;
@@ -135,7 +134,6 @@
         animation-delay: -6s, -3s;
       }
 
-      /* Social pill hover sheen */
       .tx-social {
         position: relative;
         overflow: hidden;
@@ -165,7 +163,6 @@
       }
       .tx-social:active { transform: translateY(0) scale(.985); }
 
-      /* Gradient text */
       .tx-gradient-text {
         background-image: linear-gradient(90deg, #00f5a0, #4fd1ff, #6d5efc, #00f5a0);
         background-size: 200% 100%;
@@ -175,26 +172,13 @@
         animation: tx-gradient-pan 8s linear infinite;
       }
 
-      /* ============================================================
-         MOBILE RESPONSIVE GUARDS
-      ============================================================ */
       @media (max-width: 640px) {
-        /* Tap target minimum 44px */
         a, button, [role="button"] { min-height: 44px; }
-
-        /* Heading overflow clamp */
         h1, h2, h3 { overflow-wrap: anywhere; word-break: break-word; }
-
-        /* Long URLs / code blocks */
         pre, code { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-
-        /* Footer bottom safe-area (iPhone notch) */
-        .tx-safe-bottom {
-          padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
-        }
+        .tx-safe-bottom { padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px)); }
       }
 
-      /* Reduced motion – accessibility */
       @media (prefers-reduced-motion: reduce) {
         html { scroll-behavior: auto; }
         *, *::before, *::after {
@@ -210,7 +194,6 @@
   <body class="bg-[#111319] text-[#e1e2ea] antialiased selection:bg-[#00f5a0] selection:text-[#006b43] min-h-screen">
     <div id="root"></div>
 
-    <!-- Scroll-reveal observer (React ke content pe bhi kaam karta hai) -->
     <script>
       (function () {
         if (!("IntersectionObserver" in window)) {
@@ -247,7 +230,6 @@
         document.addEventListener("DOMContentLoaded", scan);
         window.addEventListener("load", scan);
 
-        // React render hone ke baad naye elements auto-observe ho jayein
         if (window.MutationObserver && document.body) {
           new MutationObserver(scan).observe(document.body, {
             childList: true,
