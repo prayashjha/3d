@@ -51,22 +51,52 @@
       /* Hide scrollbar for sidebar */
       .no-scrollbar::-webkit-scrollbar { display: none; }
       .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+      /* Toast Notification Animation */
+      #toast {
+        visibility: hidden;
+        min-width: 250px;
+        background-color: #00f5a0;
+        color: #000;
+        text-align: center;
+        border-radius: 8px;
+        padding: 12px 20px;
+        position: fixed;
+        z-index: 100;
+        left: 50%;
+        bottom: 30px;
+        transform: translateX(-50%);
+        font-size: 14px;
+        font-weight: bold;
+        box-shadow: 0 4px 15px rgba(0, 245, 160, 0.4);
+        opacity: 0;
+        transition: opacity 0.3s, bottom 0.3s;
+      }
+
+      #toast.show {
+        visibility: visible;
+        opacity: 1;
+        bottom: 50px;
+      }
     </style>
   </head>
 
   <body class="bg-darkbg text-gray-300 font-sans antialiased h-screen overflow-hidden flex selection:bg-brand selection:text-black">
 
+    <!-- TOAST NOTIFICATION ELEMENT -->
+    <div id="toast">Action Successful!</div>
+
     <!-- ========================================== -->
-    <!-- 1. MOBILE OVERLAY (Background Black when menu opens) -->
+    <!-- 1. MOBILE OVERLAY -->
     <!-- ========================================== -->
     <div id="mobile-overlay" class="fixed inset-0 bg-black/60 z-40 hidden md:hidden transition-opacity" onclick="toggleSidebar()"></div>
 
     <!-- ========================================== -->
-    <!-- 2. SIDEBAR (Jo aapka menu tha, ab slide hoga) -->
+    <!-- 2. SIDEBAR -->
     <!-- ========================================== -->
     <aside id="sidebar" class="fixed md:static inset-y-0 left-0 z-50 w-64 bg-panel border-r border-border flex flex-col transform -translate-x-full md:translate-x-0 sidebar-transition h-full">
       
-      <!-- Logo Area (Mobile par close button bhi hoga) -->
+      <!-- Logo Area -->
       <div class="p-4 flex items-center justify-between border-b border-border/50">
         <div class="flex items-center gap-3">
           <div class="w-10 h-10 rounded bg-gradient-to-br from-brand to-[#00b47b] flex items-center justify-center shadow-[0_0_15px_rgba(0,245,160,0.3)]">
@@ -74,45 +104,45 @@
           </div>
           <span class="font-display font-bold text-xl tracking-wide text-white">TOOLSX</span>
         </div>
-        <!-- Close Button (Sirf mobile par dikhega) -->
+        <!-- Close Button -->
         <button onclick="toggleSidebar()" class="md:hidden text-gray-400 hover:text-white">
           <span class="material-symbols-outlined">close</span>
         </button>
       </div>
 
-      <!-- Menu Items (Screenshot ke hisaab se) -->
+      <!-- Menu Items -->
       <div class="flex-1 overflow-y-auto no-scrollbar py-4 flex flex-col gap-2 px-3">
-        <a href="#" class="flex items-center gap-3 p-3 rounded-lg bg-brand/10 text-brand border border-brand/20">
+        <a href="#" onclick="showToast('Dashboard Selected')" class="flex items-center gap-3 p-3 rounded-lg bg-brand/10 text-brand border border-brand/20">
           <span class="material-symbols-outlined">dashboard</span>
           <span class="font-medium text-sm">Dashboard</span>
         </a>
-        <a href="#" class="flex items-center gap-3 p-3 rounded-lg text-gray-400 hover:bg-gray-800 hover:text-white transition-colors">
+        <a href="#" onclick="showToast('Grid Layout Opened')" class="flex items-center gap-3 p-3 rounded-lg text-gray-400 hover:bg-gray-800 hover:text-white transition-colors">
           <span class="material-symbols-outlined">grid_view</span>
           <span class="font-medium text-sm">Grid Layout</span>
         </a>
-        <a href="#" class="flex items-center gap-3 p-3 rounded-lg text-gray-400 hover:bg-gray-800 hover:text-white transition-colors">
+        <a href="#" onclick="showToast('Trash Opened')" class="flex items-center gap-3 p-3 rounded-lg text-gray-400 hover:bg-gray-800 hover:text-white transition-colors">
           <span class="material-symbols-outlined">delete</span>
           <span class="font-medium text-sm">Trash</span>
         </a>
-        <a href="#" class="flex items-center gap-3 p-3 rounded-lg text-gray-400 hover:bg-gray-800 hover:text-white transition-colors">
+        <a href="#" onclick="showToast('Theme Toggled')" class="flex items-center gap-3 p-3 rounded-lg text-gray-400 hover:bg-gray-800 hover:text-white transition-colors">
           <span class="material-symbols-outlined">light_mode</span>
           <span class="font-medium text-sm">Theme</span>
         </a>
-        <a href="#" class="flex items-center gap-3 p-3 rounded-lg text-gray-400 hover:bg-gray-800 hover:text-white transition-colors">
+        <a href="#" onclick="showToast('3D Engine Loading...')" class="flex items-center gap-3 p-3 rounded-lg text-gray-400 hover:bg-gray-800 hover:text-white transition-colors">
           <span class="material-symbols-outlined">view_in_ar</span>
           <span class="font-medium text-sm">3D Engine</span>
         </a>
-        <a href="#" class="flex items-center gap-3 p-3 rounded-lg text-gray-400 hover:bg-gray-800 hover:text-white transition-colors">
+        <a href="#" onclick="showToast('Running Preview...')" class="flex items-center gap-3 p-3 rounded-lg text-gray-400 hover:bg-gray-800 hover:text-white transition-colors">
           <span class="material-symbols-outlined">play_circle</span>
           <span class="font-medium text-sm">Run Preview</span>
         </a>
-        <a href="#" class="flex items-center gap-3 p-3 rounded-lg text-gray-400 hover:bg-gray-800 hover:text-white transition-colors">
+        <a href="#" onclick="showToast('Settings Opened')" class="flex items-center gap-3 p-3 rounded-lg text-gray-400 hover:bg-gray-800 hover:text-white transition-colors">
           <span class="material-symbols-outlined">settings</span>
           <span class="font-medium text-sm">Settings</span>
         </a>
       </div>
 
-      <!-- Bottom Meta (FPS / TRIS) -->
+      <!-- Bottom Meta -->
       <div class="p-4 border-t border-border/50 bg-[#0d1117]/50 text-[11px] font-mono">
         <div class="flex justify-between items-center mb-1">
           <span class="text-brand">● FPS</span>
@@ -134,27 +164,25 @@
     <!-- ========================================== -->
     <div class="flex-1 flex flex-col h-full overflow-hidden relative">
       
-      <!-- Top Header (Mobile par Hamburger aur Login) -->
+      <!-- Top Header -->
       <header class="h-16 bg-panel/80 backdrop-blur-md border-b border-border flex items-center justify-between px-4 sticky top-0 z-30">
         <div class="flex items-center gap-3">
-          <!-- Hamburger Menu Button (Mobile Only) -->
+          <!-- Hamburger Menu Button -->
           <button onclick="toggleSidebar()" class="md:hidden text-gray-400 hover:text-white p-2 rounded-lg hover:bg-gray-800 transition-colors">
             <span class="material-symbols-outlined">menu</span>
           </button>
-          
-          <!-- Desktop Breadcrumb / Title -->
           <span class="hidden md:block text-sm font-mono text-gray-500">TOOLSX.SPEC V2.4-STABLE</span>
         </div>
 
-        <!-- Top Right Actions (Sparkles, Upload, Bell, Login) -->
+        <!-- Top Right Actions -->
         <div class="flex items-center gap-2">
-          <button class="w-9 h-9 flex items-center justify-center rounded bg-brand text-black shadow-[0_0_10px_rgba(0,245,160,0.3)] hover:scale-105 transition-transform">
+          <button onclick="showToast('AI Generator Opened')" class="w-9 h-9 flex items-center justify-center rounded bg-brand text-black shadow-[0_0_10px_rgba(0,245,160,0.3)] hover:scale-105 transition-transform">
             <span class="material-symbols-outlined text-lg">auto_awesome</span>
           </button>
-          <button class="w-9 h-9 flex items-center justify-center rounded bg-panel border border-border text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">
+          <button onclick="showToast('Upload Modal Opened')" class="w-9 h-9 flex items-center justify-center rounded bg-panel border border-border text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">
             <span class="material-symbols-outlined text-lg">upload</span>
           </button>
-          <button class="w-9 h-9 flex items-center justify-center rounded bg-panel border border-border text-gray-400 hover:text-white hover:bg-gray-800 transition-colors relative">
+          <button onclick="showToast('You have 1 new notification!')" class="w-9 h-9 flex items-center justify-center rounded bg-panel border border-border text-gray-400 hover:text-white hover:bg-gray-800 transition-colors relative">
             <span class="material-symbols-outlined text-lg">notifications</span>
             <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-brand rounded-full"></span>
           </button>
@@ -162,7 +190,7 @@
           <div class="w-[1px] h-6 bg-border mx-1"></div>
           
           <!-- Login Button -->
-          <button class="flex items-center gap-2 px-3 py-1.5 rounded-md border border-brand/50 text-brand hover:bg-brand/10 transition-colors text-sm font-medium">
+          <button onclick="showToast('Login flow initiated...')" class="flex items-center gap-2 px-3 py-1.5 rounded-md border border-brand/50 text-brand hover:bg-brand/10 transition-colors text-sm font-medium">
             <span class="material-symbols-outlined text-lg">login</span>
             <span class="hidden sm:inline">Login</span>
           </button>
@@ -186,15 +214,15 @@
             </h1>
             
             <p class="text-gray-400 text-sm md:text-base leading-relaxed mb-6">
-              Comprehensive overview of 3D Graphics pipeline, browser-based storage security, Scene graph serialization, and AI Generation schemas by AI Tools Lab India (<a href="#" class="text-brand hover:underline">toolsx.in</a>).
+              Comprehensive overview of 3D Graphics pipeline, browser-based storage security, Scene graph serialization, and AI Generation schemas by AI Tools Lab India (<a href="https://toolsx.in" target="_blank" class="text-brand hover:underline">toolsx.in</a>).
             </p>
 
-            <!-- Buttons -->
+            <!-- Buttons (Now with Click Actions) -->
             <div class="flex flex-col sm:flex-row gap-3">
-              <button class="flex-1 bg-panel border border-border hover:border-brand text-white py-2.5 rounded-lg text-sm font-medium flex items-center justify-center gap-2 transition-all">
+              <button onclick="copySpecJSON()" class="flex-1 bg-panel border border-border hover:border-brand text-white py-2.5 rounded-lg text-sm font-medium flex items-center justify-center gap-2 transition-all">
                 <span class="material-symbols-outlined text-lg">content_copy</span> Copy Spec JSON
               </button>
-              <button class="flex-1 bg-brand hover:bg-[#00d68a] text-black py-2.5 rounded-lg text-sm font-bold flex items-center justify-center gap-2 transition-all shadow-[0_4px_15px_rgba(0,245,160,0.2)]">
+              <button onclick="showToast('Audit Report Generated Successfully!')" class="flex-1 bg-brand hover:bg-[#00d68a] text-black py-2.5 rounded-lg text-sm font-bold flex items-center justify-center gap-2 transition-all shadow-[0_4px_15px_rgba(0,245,160,0.2)]">
                 <span class="material-symbols-outlined text-lg">verified</span> Audit Report
               </button>
             </div>
@@ -210,15 +238,15 @@
             </p>
           </div>
 
-          <!-- Interactive Diagnostics Placeholder -->
+          <!-- Interactive Diagnostics Placeholder (Now with Toggle Logic) -->
           <div class="bg-panel border border-border rounded-xl p-5 md:p-6 flex flex-col sm:flex-row justify-between items-center gap-4 animate-fade-up" style="animation-delay: 0.2s;">
             <div>
               <h3 class="text-sm font-bold text-white mb-1">INTERACTIVE DIAGNOSTICS</h3>
               <p class="text-xs text-gray-500 font-mono">ALL ENGINES NOMINAL</p>
             </div>
-            <div class="flex gap-2">
-               <button class="px-4 py-1.5 rounded bg-brand text-black text-xs font-bold">PERSP</button>
-               <button class="px-4 py-1.5 rounded border border-border text-gray-400 hover:text-white text-xs font-bold">ORTHO</button>
+            <div class="flex gap-2" id="camera-toggle">
+               <button onclick="toggleCamera('persp')" id="btn-persp" class="px-4 py-1.5 rounded bg-brand text-black text-xs font-bold transition-colors">PERSP</button>
+               <button onclick="toggleCamera('ortho')" id="btn-ortho" class="px-4 py-1.5 rounded border border-border text-gray-400 hover:text-white text-xs font-bold transition-colors">ORTHO</button>
             </div>
           </div>
 
@@ -227,7 +255,7 @@
             <div class="flex flex-col md:flex-row justify-between items-center gap-4">
               <p class="text-gray-500 text-xs">© 2024 TOOLSX 3D. Built by AI Tools Lab India.</p>
               
-              <!-- Social Links (No break, direct links) -->
+              <!-- Social Links -->
               <div class="flex gap-4">
                 <a href="https://twitter.com/toolsx_in" target="_blank" class="text-gray-400 hover:text-brand transition-colors text-sm font-medium">Twitter</a>
                 <a href="https://github.com/toolsx" target="_blank" class="text-gray-400 hover:text-brand transition-colors text-sm font-medium">GitHub</a>
@@ -240,22 +268,62 @@
       </main>
     </div>
 
-    <!-- Javascript to Toggle Sidebar on Mobile -->
+    <!-- ========================================== -->
+    <!-- JAVASCRIPT LOGIC FOR ALL BUTTONS -->
+    <!-- ========================================== -->
     <script>
+      // 1. Sidebar Toggle Logic
       function toggleSidebar() {
         const sidebar = document.getElementById('sidebar');
         const overlay = document.getElementById('mobile-overlay');
         
         if (sidebar.classList.contains('-translate-x-full')) {
-          // Open Sidebar
           sidebar.classList.remove('-translate-x-full');
           sidebar.classList.add('translate-x-0');
           overlay.classList.remove('hidden');
         } else {
-          // Close Sidebar
           sidebar.classList.add('-translate-x-full');
           sidebar.classList.remove('translate-x-0');
           overlay.classList.add('hidden');
+        }
+      }
+
+      // 2. Toast Notification Function
+      let toastTimeout;
+      function showToast(message) {
+        const toast = document.getElementById("toast");
+        toast.innerText = message;
+        toast.className = "show";
+        
+        clearTimeout(toastTimeout);
+        toastTimeout = setTimeout(function(){ 
+          toast.className = toast.className.replace("show", ""); 
+        }, 3000);
+      }
+
+      // 3. Copy to Clipboard Function
+      function copySpecJSON() {
+        const jsonString = JSON.stringify({ spec: "TOOLSX.SPEC V2.4-STABLE", status: "Nominal", fps: 60.2 });
+        navigator.clipboard.writeText(jsonString).then(() => {
+          showToast("Spec JSON Copied to Clipboard! ✅");
+        }).catch(err => {
+          showToast("Failed to copy. Try again.");
+        });
+      }
+
+      // 4. Camera Toggle (PERSP / ORTHO)
+      function toggleCamera(mode) {
+        const btnPersp = document.getElementById('btn-persp');
+        const btnOrtho = document.getElementById('btn-ortho');
+
+        if (mode === 'persp') {
+          btnPersp.className = "px-4 py-1.5 rounded bg-brand text-black text-xs font-bold transition-colors";
+          btnOrtho.className = "px-4 py-1.5 rounded border border-border text-gray-400 hover:text-white text-xs font-bold transition-colors";
+          showToast("Switched to Perspective View");
+        } else {
+          btnOrtho.className = "px-4 py-1.5 rounded bg-brand text-black text-xs font-bold transition-colors";
+          btnPersp.className = "px-4 py-1.5 rounded border border-border text-gray-400 hover:text-white text-xs font-bold transition-colors";
+          showToast("Switched to Orthographic View");
         }
       }
     </script>
