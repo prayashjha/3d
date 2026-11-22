@@ -1,8 +1,0 @@
-{
-  "name": "MIRRORA - Spatial Engine & 3D Architecture",
-  "description": "Comprehensive 3D Graphics pipeline, Scene graph serialization, Supabase RLS security, and AI generation compendium.",
-  "requestFramePermissions": [],
-  "majorCapabilities": [
-    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
-  ]
-}
